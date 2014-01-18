@@ -21,37 +21,58 @@
 	// Objects
 	echo get_class($lob->objects());
 	// >>> Lob\Resource\Objects
-
 	try {
-    // Returns a valid address
-    $address = $lob->addresses()->create(array(
-        'name'              => 'test', // Required
-        'address_line1'     => '123 Test Street', // Required
-        'address_line2'     => '', // Optional
-        'address_city'      => 'Mountain View', // Required
-        'address_state'     => 'CA', // Required
-        'address_country'   => 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
-        'address_zip'       => '94085', // Required
-        'email'             => '' // Optional
-        'phone'             => ''
-    ));
+	    // Returns a valid address
+	    $senderAddress = $lob->addresses()->create(array(
+	        'name'              => 'Harry Zhang', // Required
+	        'address_line1'     => '123 Test Street', // Required
+	        'address_line2'     => 'Unit 199', // Optional
+	        'address_city'      => 'Mountain View', // Required
+	        'address_state'     => 'CA', // Required
+	        'address_country'   => 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
+	        'address_zip'       => '94085', // Required
+	        'email'             => 'harry@lob.com', // Optional
+	        'phone'             => '5555555555', // Optional
+	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
 	    // Do something
 	}
 
 	try {
-	    // Returns a valid object
-	    $object = $lob->objects()->create(array(
-	        'name'        => 'TEST' // Required
-	        'file'        => '@'.realpath('/path/to/your/file/goblue.pdf'), // Required
-	        'setting_id'  => $setting['id'], // Required
-	        'quantity'    => 1, // Optional
+	    // Returns a valid address
+	    $receiverAddress = $lob->addresses()->create(array(
+	        'name'              => 'Harry Zhang', // Required
+	        'address_line1'     => '123 Test Street', // Required
+	        'address_line2'     => 'Unit 199', // Optional
+	        'address_city'      => 'Mountain View', // Required
+	        'address_state'     => 'CA', // Required
+	        'address_country'   => 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
+	        'address_zip'       => '94085', // Required
+	        'email'             => 'harry@lob.com', // Optional
+	        'phone'             => '5555555555', // Optional
+	    ));
+	} catch (\Lob\Exception\ValidationException $e) {
+	    // Do something
+	}
+
+
+
+	try {
+	    // Returns a valid postcard
+	    $postcard = $lob->postcards()->create(array(
+	        'name'          => 'Demo Postcard job', // Required
+	        'to'            => $receiverAddress['id'], // Required
+	        'from'          => $senderAddress['id'], // Optional
+	        'message'       => 'This an example message on back of the postcard'/*, // Optional
+	        // For both front and back parameters, you can also provide a public URL
+	        'front'         => '@'.realpath('/users/m/f/mfurland/www-root/GrandMail/Shiney.pdf'), // Optional
+	        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional//*/
 	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
 	    // Do something
 	}
 
 	echo "<pre>";
-	print_r($object)
+	print_r($postcard)
 
 ?>
