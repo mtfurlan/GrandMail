@@ -1,0 +1,21 @@
+body {
+	text-align: center;
+	background: url('http://thedanyaal.com/img/geometry/geometry.png');
+}
+h2 {
+	font-family: Helvetica, Arial, sans-serif;
+	margin-top: 0;
+}
+#logo {
+	width: 50%;
+}
+.half
+{
+	display: inline-block;
+	width: 48%;
+}
+#description {
+	font-size: 25px;
+	text-align: left;
+	float:right;
+}
