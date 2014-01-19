@@ -1,46 +1,58 @@
 <?PHP
+include("dealWithALLtheShit.php");
 
-error_reporting(E_STRICT | E_ALL | E_DEPRECATED);
-ini_set("display_errors", 1);
-
-
+$displayForm = false;
 if(isset($_POST["submit"])){
 
+	$sender = array();
+	$sender["name"] = (isset($_POST['nameS']) ? $_POST['nameS'] : "");
+	$sender["address_line1"] = (isset($_POST['address_line1S']) ? $_POST['address_line1S'] : "");
+	$sender["address_line2"] = (isset($_POST['address_line2S']) ? $_POST['address_line2S'] : "");
+	$sender["address_city"] = (isset($_POST['address_cityS']) ? $_POST['address_cityS'] : "");
+	$sender["address_state"] = (isset($_POST['address_stateS']) ? $_POST['address_stateS'] : "");
+	$sender["address_zip"] = (isset($_POST['address_zipS']) ? $_POST['address_zipS'] : "");
+	$sender["sender"] = true;
 
-	require 'vendor/autoload.php';
+	$recipient = array();
+	$recipient["name"] = (isset($_POST['nameR']) ? $_POST['nameR'] : "");
+	$recipient["address_line1"] = (isset($_POST['address_line1R']) ? $_POST['address_line1R'] : "");
+	$recipient["address_line2"] = (isset($_POST['address_line2R']) ? $_POST['address_line2R'] : "");
+	$recipient["address_city"] = (isset($_POST['address_cityR']) ? $_POST['address_cityR'] : "");
+	$recipient["address_state"] = (isset($_POST['address_stateR']) ? $_POST['address_stateR'] : "");
+	$recipient["address_zip"] = (isset($_POST['address_zipR']) ? $_POST['address_zipR'] : "");
+	$recipient["sender"] = false;
 
-	$apiKey = 'test_e843940124f6ac7068f839654ecf265c349';
-	$lob = new \Lob\Lob($apiKey);
+	$subject = (isset($_POST['subject']) ? $_POST['subject'] : "");
+	$message = (isset($_POST['message']) ? $_POST['message'] : "");
 
-	$lob->setVersion('v1'); 
 
-	/*
-	// Returns a valid address with more details
-	$address = $lob->addresses()->verify(array(
-		'address_line1'		=> (isset($_POST['address_line1']) ? $_POST['address_line1'] : ""), // Optional
-		'address_line2'		=> (isset($_POST['address_line2']) ? $_POST['address_line2'] : ""), // Optional
-		'address_city'		=> (isset($_POST['address_city'])  ? $_POST['address_city']  : ""), // Optional
-		'address_state'		=> (isset($_POST['address_state']) ? $_POST['address_state'] : ""), // Optional
-		'address_country'	=> "US",  // Optional
-		'address_zip'		=> (isset($_POST['address_zip'])   ? $_POST['address_zip']   : ""), // Optional
-	));*/
+	if(!isset($nameS,$address_line1S,$address_cityS,$address_stateS,$address_zipS,$nameR,$address_line1R,$address_cityS,$address_stateR,$address_zipR,$subject,$message)) {
+		$displayForm = true;
+	}
 
-  // Returns a valid address with more details
-  $address = $lob->addresses()->verify(array(
-      'address_line1'     => '123 Test Street', // Optional
-      'address_line2'     => 'Unit 199', // Optional
-      'address_city'      => 'Mountain View', // Optional
-      'address_state'     => 'CA', // Optional
-      'address_country'   => 'US',  // Optional
-      'address_zip'       => '94085', // Optional
-  ));
+	echo "Trying to send letter...<pre>";
+	try{
+		//Submit shit
+		$doShite = new doShite();
+		$doShite->addMessage($message);
+		$doShite->addSubject($subject);
+		$doShite->addFormAddress($sender);
+		$doShite->addFormAddress($recipient);
+		$doShite->mailLetter();//SENT MOTHERFUCKERS.
+	}catch (Exception $e){
+		echo "</pre>Letter could not be sent: <pre>";
+		print_r($e);
+		echo "</pre>";
+	}
+
+	echo "</pre>Letter sent successfully";
 
 }else{//Display form
 	$displayForm = true;
 }
 
 if($displayForm){
-echo <<<FORM
+	echo <<<FORM
 <form name="input" action="?Page=form" method="POST">
 	<div>
 		<fieldset>
@@ -87,8 +99,10 @@ echo <<<FORM
 			</label>
 		</fieldset>
 	</div>
-
-	<textarea id="message" placeholder="Enter your message here..." required="textarea"></textarea>
+	<label for="subject">
+		Subject: <input id="subject" type="text" name="subject" required="required">
+	</label>
+	<textarea id="message" name="message" placeholder="Enter your message here..." required="textarea"></textarea>
 
 
 	<input name="submit" id="submit" type="submit" value="Submit">

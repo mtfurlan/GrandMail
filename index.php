@@ -1,3 +1,7 @@
+<?PHP
+error_reporting(E_STRICT | E_ALL | E_DEPRECATED);
+ini_set("display_errors", 1);
+?>
 <html>
 	<head>
 		<title>
