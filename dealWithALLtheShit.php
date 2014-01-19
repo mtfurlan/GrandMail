@@ -138,7 +138,7 @@ class doShite{
 		preg_match("/\<(.*)\>/",$fromStr,$fromArr);
 		$from = $fromArr[1];
 		$toArr = array();
-		preg_match("/\<(.*)@scuzz/",$toStr,$toArr);
+		preg_match("/\<(.*)@/",$toStr,$toArr);
 		$to = $toArr[1];
 
 		$sender = json_decode($db->fetchHome($from),true);
@@ -148,6 +148,8 @@ class doShite{
 
 		$recipient = json_decode($db->fetchRecipent($from,$to),true);
 		$this->addFormAddress($recipient);
+
+		return array($sender,$recipient);
 
 		//file_put_contents("out.txt","to: " . $to . "\nfrom: " . $from);
 
@@ -170,7 +172,7 @@ Mark Furland
 
 	function saveAddress($address,$email,$id){
 		$db = new DB();
-		
+
 		try{
 			$address = $this->lob->addresses()->verify(array(
 				'name'				=> $address["name"], // Required

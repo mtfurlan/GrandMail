@@ -35,6 +35,9 @@ class DB{
 		$statement->execute(array(':owner' => $email));
 		$row = $statement->fetch();
 
+		if(empty($row)){
+			throw new Exception("Who are you");
+		}
 		return $row[0];
 	}
 
@@ -43,6 +46,10 @@ class DB{
 		$statement = $this->DBH->prepare($SQL);
 		$statement->execute(array(':owner' => $from, ':id' => $to));
 		$row = $statement->fetch();
+
+		if(empty($row)){
+			throw new Exception("Bad address ID");
+		}
 
 		return $row[0];
 	}
