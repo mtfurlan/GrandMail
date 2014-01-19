@@ -106,7 +106,7 @@ if($displayForm):
 	<label for="subject">
 		Subject: <input id="subject" type="text" name="subject" <?php echo (isset($subject) ? "value=\"" . $subject . "\" " : ""); ?>required="required">
 	</label>
-	<textarea id="message" name="message" <? echo (!isset($message) ? "placeholder=\"Enter your message here...\"" : ""); ?> required="textarea"><?php echo (isset($message) ? $message : ""); ?></textarea>
+	<textarea id="message" name="message" <?PHP echo (!isset($message) ? "placeholder=\"Enter your message here...\"" : ""); ?> required="textarea"><?php echo (isset($message) ? $message : ""); ?></textarea>
 
 
 	<input name="submit" id="submit" type="submit" value="Submit">
