@@ -170,6 +170,20 @@ Mark Furland
 
 	function saveAddress($address,$email,$id){
 		$db = new DB();
+		
+		try{
+			$address = $this->lob->addresses()->verify(array(
+				'name'				=> $address["name"], // Required
+				'address_line1'		=> $address["address_line1"], // Required
+				'address_line2'		=> $address["address_line2"], // Optional
+				'address_city'		=> $address["address_city"], // Required
+				'address_state'		=> $address["address_state"], // Required
+				'address_country'	=> 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
+				'address_zip'		=> $address["address_zip"], // Required
+			));
+		}catch(Exception $e){
+			throw new Exception("Invalid Address");
+		}
 		$json = json_encode($address);
 		$db->addAddress($email,$id,$json);
 

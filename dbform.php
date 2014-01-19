@@ -29,12 +29,17 @@ if(isset($_POST["submit"])){
 			$doShite = new doShite();
 			$doShite->saveAddress($sender,$email,$id);
 		}catch (Exception $e){
-			echo "</pre>Address not added: <pre>";
-			print_r($e);
-			echo "</pre>";
+			if($e->getMessage() == "Invalid Address"){
+				echo "</pre><span class=\"errors\">Invalid Address, plese try again.</span>";
+				$displayForm = true;
+			}else{
+				echo "</pre>Unknown error: <pre>";
+				print_r($e);
+				echo "</pre>";
+			}
 		}
-
-		echo "</pre>address added successfully";
+		if(!$displayForm)
+			echo "</pre>Data submitted successfully";
 	}
 }else{//Display form
 	$displayForm = true;
