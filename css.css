@@ -49,3 +49,10 @@ label {
 .errors{
 	color:red;
 }
+
+.textarea{
+	width: 90%;
+	height: 30%;
+	margin:0 auto;
+
+}

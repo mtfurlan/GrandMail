@@ -107,10 +107,11 @@ if($displayForm):
 			</label>
 		</fieldset>
 	</div>
+	<!--Taking this out for now.
 	<label for="subject">
 		Subject: <input id="subject" type="text" name="subject" <?php echo (isset($subject) ? "value=\"" . $subject . "\" " : ""); ?>required="required">
-	</label>
-	<textarea id="message" name="message" <?PHP echo (!isset($message) ? "placeholder=\"Enter your message here...\"" : ""); ?> required="textarea"><?php echo (isset($message) ? $message : ""); ?></textarea>
+	</label>-->
+	<textarea id="message" class="textarea" name="message" <?PHP echo (!isset($message) ? "placeholder=\"Enter your message here...\"" : ""); ?> required="textarea"><?php echo (isset($message) ? $message : ""); ?></textarea><br>
 
 
 	<input name="submit" id="submit" type="submit" value="Submit">
