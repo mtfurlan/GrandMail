@@ -35,7 +35,7 @@
 	        'phone'             => '5555555555', // Optional
 	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
-	    // Do something
+		die();
 	}
 
 	try {
@@ -52,7 +52,7 @@
 	        'phone'             => '5555555555', // Optional
 	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
-	    // Do something
+		die();
 	}
 
 
@@ -69,7 +69,7 @@
 	        'back'          => '@'.realpath('/path/to/your/file/goblue.pdf'), // Optional//*/
 	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
-	    // Do something
+		die();
 	}
 
 	echo "<pre>";
