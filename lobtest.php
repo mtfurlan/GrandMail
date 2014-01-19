@@ -52,7 +52,7 @@
 	        'phone'             => '5555555555', // Optional
 	    ));
 	} catch (\Lob\Exception\ValidationException $e) {
-		die();
+		die();/*dies*/
 	}
 
 
