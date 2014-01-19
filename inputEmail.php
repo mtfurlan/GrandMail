@@ -1,22 +1,30 @@
 <?PHP
+error_reporting(E_STRICT | E_ALL | E_DEPRECATED);
+ini_set("display_errors", 1);
+include("dealWithALLtheShit.php");
 
-$from = $_POST["from"];
-$to = $_POST["to"];
-$subject = $_POST["subject"];
-$htmlContent = $_POST["html"];
+$from = isset($_POST["from"]) ? $_POST["from"] : "";
+$to = isset($_POST["to"]) ? $_POST["to"] : "";
+$subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
+$message = isset($_POST["html"]) ? $_POST["html"] : "";
 
+		try{
+			//Submit shit
+			$doShite = new doShite();
+			$doShite->emailAddresses($from, $to);
+			$doShite->addMessage($message);
+			$doShite->addSubject($subject);
+			$doShite->mailLetter();//SENT MOTHERFUCKERS.
+		}catch (Exception $e){
+			echo "Death<pre>";
+			
+			$message = "Something went wrong: \n" . print_r($e,true);
 
+			// In case any of our lines are larger than 70 characters, we should use wordwrap()
+			$message = wordwrap($message, 70, "\r\n");
 
-require_once("dompdf/dompdf_config.inc.php");
-
-$dompdf = new DOMPDF();
-$dompdf->load_html($subject . $htmlContent);
-$dompdf->render();
-file_put_contents("message.pdf", $dompdf->output( array("compress" => 0) ));
-
-
-//Create message
-
-
-
-unlink("message.pdf");//Delete file
+			// Send
+			$fromArr = array();
+			preg_match("/\<(.*)\>/",$from,$fromArr);
+			mail($fromArr[1], 'GrandMail Message Failure', $message);
+		}

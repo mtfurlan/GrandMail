@@ -4,9 +4,10 @@ include("dealWithALLtheShit.php");
 $displayForm = false;
 if(isset($_POST["submit"])){
 
+	$id = (isset($_POST['id']) ? $_POST['id'] : "");
+	$email = (isset($_POST['email']) ? $_POST['email'] : "");
+
 	$sender = array();
-	$sender["id"] = (isset($_POST['id']) ? $_POST['id'] : "")
-	$sender["email"] = (isset($_POST['email']) ? $_POST['email'] : "")
 	$sender["name"] = (isset($_POST['nameS']) ? $_POST['nameS'] : "");
 	$sender["address_line1"] = (isset($_POST['address_line1S']) ? $_POST['address_line1S'] : "");
 	$sender["address_line2"] = (isset($_POST['address_line2S']) ? $_POST['address_line2S'] : "");
@@ -17,39 +18,39 @@ if(isset($_POST["submit"])){
 
 
 
-	if(!isset($sender["id"],$sender["email"],$sender["name"],$sender["address_line1"],$sender["address_city"],$sender["address_state"],$sender["address_zip"],$sender["sender"])) {
+	if(!isset($id,$email,$sender["name"],$sender["address_line1"],$sender["address_city"],$sender["address_state"],$sender["address_zip"])) {
 		$displayForm = true;
+		echo "Not all data filled out";
 	}else{
 
-		echo "Trying to send letter...<pre>";
+		echo "Trying to add address...<pre>";
 		try{
 			//Submit shit
 			$doShite = new doShite();
-			$doShite->addFormAddress($sender);
+			$doShite->saveAddress($sender,$email,$id);
 		}catch (Exception $e){
-			echo "</pre>Letter could not be sent: <pre>";
+			echo "</pre>Address not added: <pre>";
 			print_r($e);
 			echo "</pre>";
 		}
 
-		echo "</pre>Letter sent successfully";
+		echo "</pre>address added successfully";
 	}
 }else{//Display form
-	echo "There were problems with what you put in";
 	$displayForm = true;
 }
 
 if($displayForm):
-	?>
-<form name="input" action="?Page=form" method="POST">
+?>
+<form name="input" action="?Page=db" method="POST">
 	<div>
 		<fieldset>
 			<legend>Sender</legend>
-			<label for="nameS">
-				ID: <input id="id" type="text" name="id" <?php echo (isset($sender["id"]) ? "value=\"" . $sender["id"] . "\" " : ""); ?> required="required">
+			<label for="id">
+				ID: <input id="id" type="text" name="id" <?php echo (isset($id) ? "value=\"" . $id . "\" " : ""); ?> required="required">
 			</label>
-			<label for="nameS">
-				Email: <input id="email" type="text" name="email" <?php echo (isset($sender["email"]) ? "value=\"" . $sender["email"] . "\" " : ""); ?> required="required">
+			<label for="email">
+				Email: <input id="email" type="text" name="email" <?php echo (isset($email) ? "value=\"" . $email . "\" " : ""); ?> required="required">
 			</label>
 			<label for="nameS">
 				Name: <input id="nameS" type="text" name="nameS" <?php echo (isset($sender["name"]) ? "value=\"" . $sender["name"] . "\" " : ""); ?> required="required">

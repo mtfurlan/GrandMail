@@ -7,6 +7,7 @@ ini_set("display_errors", 1);
  * inputEmail makes PDF and has emails that we need to extrapolate addresses from. ETC.
  **/
 require 'vendor/autoload.php';
+include 'db.php';
 
 
 class doShite{
@@ -55,7 +56,7 @@ class doShite{
 		} catch (\Lob\Exception\ValidationException $e) {
 			die("Address failure");
 		}
-		if($addressInfo["sender"] === true){
+		if(isset($addressInfo["sender"]) && $addressInfo["sender"] === true){
 			$this->sender = $adress;
 		}else{
 			$this->recipient = $adress;
@@ -118,8 +119,49 @@ class doShite{
 
 
 
+	function emailAddresses($fromStr, $toStr){
+		$db = new DB();
+
+		$fromArr = array();
+		preg_match("/\<(.*)\>/",$fromStr,$fromArr);
+		$from = $fromArr[1];
+		$toArr = array();
+		preg_match("/\<(.*)@scuzz/",$toStr,$toArr);
+		$to = $toArr[1];
+
+		$sender = json_decode($db->fetchHome($from),true);
+		$sender["sender"]=true;
+		$this->addFormAddress($sender);
 
 
+		$recipient = json_decode($db->fetchRecipent($from,$to),true);
+		$this->addFormAddress($recipient);
+
+		//file_put_contents("out.txt","to: " . $to . "\nfrom: " . $from);
+
+	}
+
+/*
+    [subject] => Subject
+    [to] => f <f@scuzztest.bymail.in>
+    [html] => <div dir="ltr"><div class="gmail_default" style="font-family:tahoma,sans-serif">Oh look a message<br clear="all"></div><br>-- <br>Mark Furland<br>^M
+</div>
+
+    [from] => Mark Furland <markfurland@gmail.com>
+    [text] => Oh look a message^M
+^M
+-- ^M
+Mark Furland
+
+*/
+
+
+	function saveAddress($address,$email,$id){
+		$db = new DB();
+		$json = json_encode($address);
+		$db->addAddress($email,$id,$json);
+
+	}
 
 
 

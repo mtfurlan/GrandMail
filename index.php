@@ -35,7 +35,7 @@ ini_set("display_errors", 1);
 						default:
 							echo "GrandMail facilitates interaction between the youthful and the pre-grave. " . 
 							"In a world where communication becomes more and more open between people, there is one segmented " .
-							"audience that is getting shafted by this.<br><a href=\"?Page=form\">Form</a>";
+							"audience that is getting shafted by this.<br><a href=\"?Page=form\">Form</a><br><a href=\"?Page=db\">Add email option stuff</a>";
 					}
 				?>
 			</article>
