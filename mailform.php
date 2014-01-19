@@ -51,51 +51,51 @@ if(isset($_POST["submit"])){
 	$displayForm = true;
 }
 
-if($displayForm){
-	echo <<<FORM
+if($displayForm):
+	?>
 <form name="input" action="?Page=form" method="POST">
 	<div>
 		<fieldset>
 			<legend>Sender</legend>
 			<label for="nameS">
-				Name: <input id="nameS" type="text" name="nameS" required="required">
+				Name: <input id="nameS" type="text" name="nameS" <?php echo (isset($nameS) ? "$nameS": ""); ?> required="required">
 			</label>
 			<label for="address_line1S">
-				Address Line 1: <input id="address_line1S" type="text" name="address_line1S" required="required">
+				Address Line 1: <input id="address_line1S" type="text" name="address_line1S" <?php echo (isset($address_line1S) ? "$address_line1S": ""); ?> required="required">
 			</label>
 			<label for="address_line2S">
-				Address Line 2: <input id="address_line2S" type="text" name="address_line2S">
+				Address Line 2: <input id="address_line2S" type="text" name="address_line2S" <?php echo (isset($address_line2R) ? "$address_line2S": ""); ?> >
 			</label>
 			<label for="address_cityS">
-				City: <input id="address_cityS" type="text" name="address_cityS" required="required">
+				City: <input id="address_cityS" type="text" name="address_cityS" <?php echo (isset($address_cityS) ? "$address_cityS": ""); ?> required="required">
 			</label>
 			<label for="address_stateS">
-				State: <input id="address_stateS" type="text" name="address_stateS" pattern="[A-Z]{2}" required="required">
+				State: <input id="address_stateS" type="text" name="address_stateS" <?php echo (isset($address_stateS) ? "$address_stateS": ""); ?> pattern="[A-Z]{2}" required="required">
 			</label>
 			<label for="address_zipS">
-				Zip: <input id="address_zipS" type="text" name="address_zipS" pattern="([0-9]{5}(-[0-9]{4})?)" required="required">
+				Zip: <input id="address_zipS" type="text" name="address_zipS" <?php echo (isset($address_zipS) ? "$address_zipS": ""); ?> pattern="([0-9]{5}(-[0-9]{4})?)" required="required">
 			</label>
 		</fieldset>
 
 		<fieldset>
 			<legend>Recipient</legend>
 			<label for="nameR">
-				Name: <input id="nameR" type="text" name="nameR" required="required">
+				Name: <input id="nameR" type="text" name="nameR" <?php echo (isset($nameR) ? "$nameR": ""); ?> required="required">
 			</label>
 			<label for="address_line1R">
-				Address Line 1: <input id="address_line1R" type="text" name="address_line1R" required="required">
+				Address Line 1: <input id="address_line1R" type="text" name="address_line1R" <?php echo (isset($address_line1R) ? "$address_line1R": ""); ?> required="required">
 			</label>
 			<label for="address_line2R">
-				Address Line 2: <input id="address_line2R" type="text" name="address_line2R">
+				Address Line 2: <input id="address_line2R" type="text" name="address_line2R" <?php echo (isset($address_line2R) ? "$address_line2R": ""); ?>>
 			</label>
 			<label for="address_cityR">
-				City: <input id="address_cityR" type="text" name="address_cityR" required="required">
+				City: <input id="address_cityR" type="text" name="address_cityR" <?php echo (isset($address_cityR) ? "$address_cityR": ""); ?> required="required">
 			</label>
 			<label for="address_stateR">
-				State: <input id="address_stateR" type="text" name="address_stateR" pattern="[A-Z]{2}" required="required">
+				State: <input id="address_stateR" type="text" name="address_stateR" <?php echo (isset($address_stateR) ? "$address_stateR": ""); ?> pattern="[A-Z]{2}" required="required">
 			</label>
 			<label for="address_zipR">
-				Zip: <input id="address_zipR" type="text" name="address_zipR" pattern="([0-9]{5}(-[0-9]{4})?)" required="required">
+				Zip: <input id="address_zipR" type="text" name="address_zipR" <?php echo (isset($address_zipR) ? "$address_zipR": ""); ?> pattern="([0-9]{5}(-[0-9]{4})?)" required="required">
 			</label>
 		</fieldset>
 	</div>
@@ -107,5 +107,4 @@ if($displayForm){
 
 	<input name="submit" id="submit" type="submit" value="Submit">
 </form>
-FORM;
-}
+<?php endif; ?>
