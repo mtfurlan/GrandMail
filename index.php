@@ -10,6 +10,9 @@ ini_set("display_errors", 1);
 					case "form":
 						echo "Send a tattooed dead tree";
 						break;
+					case "db":
+						echo "Add a user";
+						break;
 					default:
 						echo "GrandMail";
 				}
@@ -25,6 +28,9 @@ ini_set("display_errors", 1);
 					switch((isset($_GET["Page"]) ? $_GET["Page"] : "" )){
 						case "form":
 							include("mailform.php");
+							break;
+						case "db":
+							include("dbform.php");
 							break;
 						default:
 							echo "GrandMail facilitates interaction between the youthful and the pre-grave. " . 
