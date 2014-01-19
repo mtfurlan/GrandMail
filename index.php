@@ -23,7 +23,9 @@
 							include("mailform.php");
 							break;
 						default:
-							echo "GrandMail facilitates interaction between the youthful and the pre-grave. In a world where communication becomes more and more open between people, there is one segmented audience that is getting shafted by this.";
+							echo "GrandMail facilitates interaction between the youthful and the pre-grave. " . 
+							"In a world where communication becomes more and more open between people, there is one segmented " .
+							"audience that is getting shafted by this.<br><a href=\"?Page=form\">Form</a>";
 					}
 				?>
 			</article>
