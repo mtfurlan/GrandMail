@@ -43,12 +43,17 @@ if(isset($_POST["submit"])){
 			$doShite->addFormAddress($recipient);
 			$doShite->mailLetter();//SENT MOTHERFUCKERS.
 		}catch (Exception $e){
-			echo "</pre>Letter could not be sent: <pre>";
-			print_r($e);
-			echo "</pre>";
+			if($e->getMessage() == "Invalid Address"){
+				echo "</pre><span class=\"errors\">Invalid Address, plese try again.</span>";
+				$displayForm = true;
+			}else{
+				echo "</pre>Letter could not be sent: <pre>";
+				print_r($e);
+				echo "</pre>";
+			}
 		}
-
-		echo "</pre>Letter sent successfully";
+		if(!$displayForm)
+			echo "</pre>Letter sent successfully";
 	}
 }else{//Display form
 	$displayForm = true;

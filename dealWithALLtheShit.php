@@ -41,7 +41,19 @@ class doShite{
 	}
 
 	function addFormAddress(array $addressInfo){
-
+		try{
+			$address = $this->lob->addresses()->verify(array(
+				'name'				=> $addressInfo["name"], // Required
+				'address_line1'		=> $addressInfo["address_line1"], // Required
+				'address_line2'		=> $addressInfo["address_line2"], // Optional
+				'address_city'		=> $addressInfo["address_city"], // Required
+				'address_state'		=> $addressInfo["address_state"], // Required
+				'address_country'	=> 'US', // Required - Must be a 2 letter country short-name code (ISO 3316)
+				'address_zip'		=> $addressInfo["address_zip"], // Required
+			));
+		}catch(Exception $e){
+			throw new Exception("Invalid Address");
+		}
 		try {
 			// Returns a valid address
 			$adress = $this->lob->addresses()->create(array(
