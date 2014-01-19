@@ -19,3 +19,28 @@ h2 {
 	text-align: left;
 	float:right;
 }
+#main{
+	background-color:white;
+	width:90%;
+	margin:0 auto;
+}
+
+form {
+    width: 90%;
+    margin: 0 auto;
+}
+fieldset{
+	display: inline-block;
+	width: 45%;
+}
+
+label, input {
+    /* in order to define widths */
+    display: inline-block;
+}
+
+label {
+    width: 90%;
+    /* positions the label text beside the input */
+    text-align: right;
+}
