@@ -51,7 +51,6 @@ if(isset($_POST["submit"])){
 		echo "</pre>Letter sent successfully";
 	}
 }else{//Display form
-	echo "There were problems with what you put in";
 	$displayForm = true;
 }
 
